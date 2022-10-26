@@ -1,0 +1,19 @@
+{
+  "title": "Post 01",
+  "description": "description one",
+  "date": "2021-12-20T00:00:00.000Z",
+  "body": {
+    "raw": "\n## Introduction\n\nintroduction....\n\n## Code Section\n\ncode section...\n",
+    "code": "var Component=(()=>{var m=Object.create;var r=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var u=Object.getOwnPropertyNames;var x=Object.getPrototypeOf,l=Object.prototype.hasOwnProperty;var j=(t,n)=>()=>(n||t((n={exports:{}}).exports,n),n.exports),_=(t,n)=>{for(var o in n)r(t,o,{get:n[o],enumerable:!0})},s=(t,n,o,i)=>{if(n&&typeof n==\"object\"||typeof n==\"function\")for(let c of u(n))!l.call(t,c)&&c!==o&&r(t,c,{get:()=>n[c],enumerable:!(i=p(n,c))||i.enumerable});return t};var f=(t,n,o)=>(o=t!=null?m(x(t)):{},s(n||!t||!t.__esModule?r(o,\"default\",{value:t,enumerable:!0}):o,t)),g=t=>s(r({},\"__esModule\",{value:!0}),t);var a=j((F,d)=>{d.exports=_jsx_runtime});var b={};_(b,{default:()=>M,frontmatter:()=>C});var e=f(a()),C={title:\"Post 01\",description:\"description one\",date:new Date(16399584e5)};function h(t){let n=Object.assign({h2:\"h2\",p:\"p\"},t.components);return(0,e.jsxs)(e.Fragment,{children:[(0,e.jsx)(n.h2,{children:\"Introduction\"}),`\n`,(0,e.jsx)(n.p,{children:\"introduction....\"}),`\n`,(0,e.jsx)(n.h2,{children:\"Code Section\"}),`\n`,(0,e.jsx)(n.p,{children:\"code section...\"})]})}function D(t={}){let{wrapper:n}=t.components||{};return n?(0,e.jsx)(n,Object.assign({},t,{children:(0,e.jsx)(h,t)})):h(t)}var M=D;return g(b);})();\n;return Component;"
+  },
+  "_id": "post-01.mdx",
+  "_raw": {
+    "sourceFilePath": "post-01.mdx",
+    "sourceFileName": "post-01.mdx",
+    "sourceFileDir": ".",
+    "contentType": "mdx",
+    "flattenedPath": "post-01"
+  },
+  "type": "Post",
+  "url": "/posts/post-01"
+}
