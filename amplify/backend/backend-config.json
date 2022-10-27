@@ -47,5 +47,29 @@
       "providerPlugin": "awscloudformation",
       "dependsOn": []
     }
+  },
+  "function": {
+    "nextjsamplifybasedpra789999b": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    }
+  },
+  "api": {
+    "apif1d44309": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "nextjsamplifybasedpra789999b",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    }
   }
 }

@@ -3,14 +3,62 @@ import Head from "next/head";
 // import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { allPosts } from ".contentlayer/generated";
-import { useEffect, useState } from "react";
-import { Box, Button, Text, Textarea, Flex, Image } from "@chakra-ui/react";
+import { useEffect, useRef, useState } from "react";
+import {
+	Box,
+	Button,
+	Text,
+	Textarea,
+	Flex,
+	Image,
+	Input,
+	Center,
+	Spinner,
+} from "@chakra-ui/react";
 import { Auth, Predictions, Storage } from "aws-amplify";
 import { SignUpForm } from "src/components/signup-form";
 import SignOutForm from "src/components/signout-form";
 import { SignInForm } from "src/components/signin-form";
 import { UploadForm } from "../src/components/upload-form";
 import { uploadToS3, getS3Object } from "../src/services/storage";
+
+import Link from "next/link";
+import { SearchIcon } from "@chakra-ui/icons";
+import { search } from "../src/services/kendra-search";
+
+const ListItem = ({ items }: { items: [] }) => {
+	return (
+		<div>
+			{items.map((item, idx) => (
+				<Link href={item["DocumentId"]} passHref key={idx}>
+					<a target={"_blank"}>
+						<Flex
+							direction={"column"}
+							// backgroundColor={"green.100"}
+							margin={"auto"}
+							marginTop={"10px"}
+							padding={"10px"}
+						>
+							<Text>{item["DocumentId"]}</Text>
+							<Text
+								fontWeight={"bold"}
+								color="blue.700"
+								_hover={{ textDecoration: "underline" }}
+							>
+								{item["DocumentTitle"]["Text"]}
+							</Text>
+							<Text>{item["DocumentURI"]}</Text>
+							<Text>{item["DocumentExcerpt"]["Text"]}</Text>
+						</Flex>
+					</a>
+				</Link>
+			))}
+		</div>
+	);
+};
+
+const ACTION_KEY_DEFAULT = ["Ctrl", "Control"];
+const ACTION_KEY_APPLE = ["⌘", "Command"];
 
 const PostCard = ({ post }: { post: any }) => {
 	return (
@@ -96,6 +144,20 @@ const Home: NextPage = () => {
 		listImages();
 	}, []);
 
+	const [items, setItems] = useState<any>([]);
+	const [query, setQuery] = useState("");
+	const [spinning, setSpinning] = useState(false);
+	const eventRef = useRef<"mouse" | "keyboard">(null);
+
+	const callSearch = async (query: string) => {
+		if (query) {
+			setSpinning(true);
+			const result = await search(query);
+			setItems(result);
+			setSpinning(false);
+		}
+	};
+
 	const handleConvert = () => {
 		// amplify text to speech
 		Predictions.convert({
@@ -135,15 +197,48 @@ const Home: NextPage = () => {
 	};
 
 	return (
-		<Flex
-			margin={"auto"}
-			maxWidth={"1000px"}
-			direction="column"
-			alignItems="center"
-		>
-			<ViewImage imageUrl={imageUrl!}></ViewImage>
-			<UploadForm processFile={uploadToS3} setImages={setImages}></UploadForm>
-			<ListImages images={images} setImageUrl={setImageUrl}></ListImages>
+		<Flex direction={"column"} maxW={"1100px"} margin="auto">
+			<Flex pos={"relative"} align="stretch" marginTop={"10px"}>
+				<Input
+					aria-autocomplete="list"
+					autoComplete="off"
+					autoCorrect="off"
+					spellCheck="false"
+					maxLength={64}
+					sx={{
+						w: "100%",
+						h: "68px",
+						pl: "68px",
+						fontWeight: "medium",
+						outline: 0,
+						bg: "gray.200",
+						_focus: { shadow: "outline" },
+						rounded: "7px",
+						".chakra-ui-dark &": { bg: "gray.700" },
+					}}
+					placeholder="Search the docs"
+					value={query}
+					onChange={(e) => {
+						setQuery(e.target.value);
+					}}
+					onKeyDown={(e: React.KeyboardEvent) => {
+						if (e.key === "Enter") {
+							console.log("search for ", query);
+							callSearch(query);
+						}
+					}}
+				></Input>
+				<Center pos={"absolute"} left={7} h={"68px"}>
+					<SearchIcon color={"teal.500"} boxSize={"20px"}></SearchIcon>
+				</Center>
+				<Center pos={"absolute"} right={7} h={"68px"}>
+					<Spinner
+						color="green"
+						display={spinning ? "block" : "None"}
+					></Spinner>
+				</Center>
+			</Flex>
+			{items.length > 0 && <ListItem items={items}></ListItem>}
 		</Flex>
 	);
 };
@@ -177,4 +272,17 @@ export default Home;
 	}
 
 	return <SignInForm setUser={setUser} />;
-		 */
+*/
+
+/**
+ * <Flex
+			margin={"auto"}
+			maxWidth={"1000px"}
+			direction="column"
+			alignItems="center"
+		>
+			<ViewImage imageUrl={imageUrl!}></ViewImage>
+			<UploadForm processFile={uploadToS3} setImages={setImages}></UploadForm>
+			<ListImages images={images} setImageUrl={setImageUrl}></ListImages>
+		</Flex>
+ */
