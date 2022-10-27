@@ -17,6 +17,12 @@
           "appId": "d3rgk3wdzmdrqa",
           "type": "manual"
         }
+      },
+      "auth": {
+        "nextjsamplifybasedpr98e5b04c": {}
+      },
+      "predictions": {
+        "speechGeneratorf2fe34e0": {}
       }
     }
   }
