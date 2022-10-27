@@ -23,6 +23,9 @@
       },
       "predictions": {
         "speechGeneratorf2fe34e0": {}
+      },
+      "storage": {
+        "nextjsawsbasedstorage": {}
       }
     }
   }

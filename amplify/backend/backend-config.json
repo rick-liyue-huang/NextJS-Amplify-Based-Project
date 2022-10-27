@@ -40,5 +40,12 @@
       "service": "Polly",
       "convertType": "speechGenerator"
     }
+  },
+  "storage": {
+    "nextjsawsbasedstorage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }

@@ -16,5 +16,11 @@ export type AmplifyDependentResourcesAttributes = {
             "language": "string",
             "voice": "string"
         }
+    },
+    "storage": {
+        "nextjsawsbasedstorage": {
+            "BucketName": "string",
+            "Region": "string"
+        }
     }
 }
